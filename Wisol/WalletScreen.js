@@ -53,7 +53,7 @@ const WalletScreen = () => {
         style={styles.icon}
         source={require('./logo1.png')}
       />
-      <Text style={styles.title}>Type your ID Wallet</Text>
+      <Text style={styles.title}>Nhập địa chỉ ví của bạn</Text>
       <TextInput
         style={styles.input}
         placeholder="Mật khẩu"
