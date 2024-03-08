@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput, Button, Text } from "react-native";
+import { View, TextInput, Button, Text, StyleSheet, Image } from "react-native";
 import axios from "axios";
 
 const WalletScreen = () => {
@@ -48,30 +48,55 @@ const WalletScreen = () => {
   };
 
   return (
-    <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 18, marginBottom: 10 }}>
-        Enter wallet address:
-      </Text>
+    <View style={styles.container}>
+      <Image
+        style={styles.icon}
+        source={require('./logo1.png')}
+      />
+      <Text style={styles.title}>Type your ID Wallet</Text>
       <TextInput
-        style={{
-          height: 40,
-          borderColor: "gray",
-          borderWidth: 1,
-          marginBottom: 10,
-        }}
-        placeholder="E.g., WTJ2ygprWuFLFyBX72RfBCdsoYmQndjg6BKNbLT6e62"
+        style={styles.input}
+        placeholder="Mật khẩu"
         onChangeText={handleWalletAddressChange}
         value={walletAddress}
+        secureTextEntry={true}
       />
-      <Button title="Submit" onPress={handleSubmit} />
-      {status === null && <Text>Loading...</Text>}
-      {status === "success" && <Text>Success! Your Sol balance is {solBalance}</Text>}
-      {status === "error" && <Text>Error! Please check the wallet address and try again.</Text>}
-      {status === "not_found" && (
-        <Text>Sorry, the wallet address does not exist. Please check and try again.</Text>
-      )}
+      <Text style={styles.forgotPassword}>Quên mật khẩu</Text>
+      <Button title="Mở khóa" onPress={handleSubmit} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#663399',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  icon: {
+    width: 100,
+    height: 100,
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 24,
+    color: '#fff',
+    marginBottom: 10,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    color: '#fff',
+    marginBottom: 10,
+    width: '100%',
+  },
+  forgotPassword: {
+    color: '#fff',
+    marginBottom: 20,
+  },
+});
 
 export default WalletScreen;
