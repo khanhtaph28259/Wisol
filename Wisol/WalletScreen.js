@@ -56,7 +56,7 @@ const WalletScreen = () => {
       <Text style={styles.title}>Nhập địa chỉ ví của bạn</Text>
       <TextInput
         style={styles.input}
-        placeholder="Mật khẩu"
+        placeholder="ID WALLET"
         onChangeText={handleWalletAddressChange}
         value={walletAddress}
         secureTextEntry={true}
