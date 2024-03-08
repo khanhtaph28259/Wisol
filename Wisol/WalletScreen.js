@@ -5,11 +5,7 @@ import axios from "axios";
 const WalletScreen = () => {
   const [walletAddress, setWalletAddress] = useState("");
   const [status, setStatus] = useState(null);
-
-  useEffect(() => {
-    // Fetch initial data
-    fetchData();
-  }, []);
+  const [solBalance, setSolBalance] = useState(null);
 
   const handleWalletAddressChange = (text) => {
     setWalletAddress(text);
@@ -24,7 +20,7 @@ const WalletScreen = () => {
     var config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "https://api.shyft.to/sol/v1/wallet/get_portfolio?network=devnet&wallet=sdfsdfsdfsdfds",
+      url: `https://api.shyft.to/sol/v1/wallet/get_portfolio?network=devnet&wallet=${walletAddress}`,
       headers: {
         "x-api-key": "-bpdmCKJLrjBTFDp",
       },
@@ -36,6 +32,7 @@ const WalletScreen = () => {
 
         if (response.data.success) {
           setStatus("success");
+          setSolBalance(response.data.solBalance); 
         } else {
           setStatus("error");
         }
@@ -62,16 +59,16 @@ const WalletScreen = () => {
           borderWidth: 1,
           marginBottom: 10,
         }}
-        placeholder="E.g., 0x1234567890..."
+        placeholder="E.g., WTJ2ygprWuFLFyBX72RfBCdsoYmQndjg6BKNbLT6e62"
         onChangeText={handleWalletAddressChange}
         value={walletAddress}
       />
       <Button title="Submit" onPress={handleSubmit} />
       {status === null && <Text>Loading...</Text>}
-      {status === "success" && <Text>Success! Redirecting...</Text>}
-      {status === "error" && <Text>Error! Please try again later.</Text>}
+      {status === "success" && <Text>Success! Your Sol balance is {solBalance}</Text>}
+      {status === "error" && <Text>Error! Please check the wallet address and try again.</Text>}
       {status === "not_found" && (
-        <Text>Sorry, the wallet address does not exist.</Text>
+        <Text>Sorry, the wallet address does not exist. Please check and try again.</Text>
       )}
     </View>
   );
