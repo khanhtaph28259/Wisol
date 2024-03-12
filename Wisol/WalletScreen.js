@@ -14,11 +14,12 @@ const WalletScreen = ({ navigation }) => {
   const handleSubmit = () => {
     fetchData().then((solBalance) => {
       if (solBalance) {
-        // Nếu thành công, chuyển đến màn hình SolScreen với số dư SOL
-        navigation.navigate('Sol', { solBalance });
+        // Nếu thành công, chuyển đến màn hình SolScreen trong TabNavigator với số dư SOL
+        navigation.navigate('TabNavigator', { screen: 'Sol', params: { solBalance } });
       }
     });
   };
+  
 
   const fetchData = () => {
     return new Promise((resolve, reject) => {
@@ -72,7 +73,7 @@ const WalletScreen = ({ navigation }) => {
         value={walletAddress}
         secureTextEntry={true}
       />
-      <Text style={styles.forgotPassword}>Quên mật khẩu</Text>
+      <Text style={styles.forgotPassword}>Cách Lấy ID Wallet</Text>
       <Button title="Mở khóa" onPress={handleSubmit} />
     </View>
   );
