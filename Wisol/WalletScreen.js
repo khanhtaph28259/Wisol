@@ -28,7 +28,7 @@ const WalletScreen = ({ navigation }) => {
         maxBodyLength: Infinity,
         url: `https://api.shyft.to/sol/v1/wallet/get_portfolio?network=devnet&wallet=${walletAddress}`,
         headers: {
-          "x-api-key": "-bpdmCKJLrjBTFDp",
+          "x-api-key": "em2a0czrM9yiU8vn",
         },
       };
   

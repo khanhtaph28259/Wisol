@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
+
 const WifiScreen = () => {
   const [wifiName, setWifiName] = useState("");
   const [address, setAddress] = useState("");
@@ -9,26 +10,29 @@ const WifiScreen = () => {
 
   const handleSubmit = () => {
     var myHeaders = new Headers();
-    myHeaders.append("x-api-key", "-bpdmCKJLrjBTFDp");
-
-    var formdata = new FormData();
-    formdata.append("wifiName", wifiName);
-    formdata.append("address", address);
-    formdata.append("password", password);
-    formdata.append("solAmount", solAmount);
-
+    myHeaders.append("x-api-key", "em2a0czrM9yiU8vn");
+    myHeaders.append("Content-Type", "application/json");
+  
+    var data = {
+      wifiName: wifiName,
+      address: address,
+      password: password,
+      solAmount: solAmount
+    };
+  
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
-      body: formdata,
+      body: JSON.stringify(data),
       redirect: 'follow'
     };
-
+  
     fetch("https://api.shyft.to/sol/v1/storage/upload", requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
   };
+  
 
   return (
     <View style={styles.container}>
