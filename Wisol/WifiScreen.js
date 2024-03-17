@@ -1,50 +1,83 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
+const AddWifiScreen = () => {
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [password, setPassword] = useState('');
+  const [sol, setSol] = useState('');
 
-const WifiScreen = () => {
-  const [wifiName, setWifiName] = useState("");
-  const [address, setAddress] = useState("");
-  const [password, setPassword] = useState("");
-  const [solAmount, setSolAmount] = useState("");
+  const handleSaveWifi = () => {
+    let wifiData = { name: name, address: address, password: password, sol: sol };
+    let url_api_wifi = 'http://192.161.176.102:3000/api/wifi';
 
-  const handleSubmit = () => {
-    var myHeaders = new Headers();
-    myHeaders.append("x-api-key", "em2a0czrM9yiU8vn");
-    myHeaders.append("Content-Type", "application/json");
-  
-    var data = {
-      wifiName: wifiName,
-      address: address,
-      password: password,
-      solAmount: solAmount
-    };
-  
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: JSON.stringify(data),
-      redirect: 'follow'
-    };
-  
-    fetch("https://api.shyft.to/sol/v1/storage/upload", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+    fetch(url_api_wifi, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(wifiData)
+    }).then((res) => {
+        if (res.status == 201)
+            alert("Bạn đã thêm thông tin Wifi thành công")
+            console.log("thanh cong")
+
+    })
+        .catch((e) => {
+            console.log(e);
+        })
+    alert('Thông tin Wifi đã được lưu thành công');
   };
-  
 
   return (
     <View style={styles.container}>
+      <Text style={styles.heading}>Thêm thông tin Wifi</Text>
       <Text style={styles.label}>Tên Wifi:</Text>
-      <TextInput style={styles.input} onChangeText={setWifiName} value={wifiName} />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Tên Wifi"
+          value={name}
+          onChangeText={(txt)=>setName(txt)}
+        />
+      </View>
+
       <Text style={styles.label}>Địa chỉ:</Text>
-      <TextInput style={styles.input} onChangeText={setAddress} value={address} />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Địa chỉ"
+          value={address}
+          onChangeText={(txt)=>setAddress(txt)}
+        />
+      </View>
+
       <Text style={styles.label}>Mật khẩu:</Text>
-      <TextInput style={styles.input} onChangeText={setPassword} value={password} secureTextEntry={true} />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Mật khẩu"
+          value={password}
+          onChangeText={(txt)=>setPassword(txt)}
+          secureTextEntry={true}
+        />
+      </View>
+
       <Text style={styles.label}>Số SOL:</Text>
-      <TextInput style={styles.input} onChangeText={setSolAmount} value={solAmount} keyboardType="numeric" />
-      <Button title="Thêm thông tin Wifi" onPress={handleSubmit} />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Số SOL"
+          value={sol}
+          onChangeText={(txt)=>setSol(txt)}
+          keyboardType="numeric"
+        />
+      </View>
+
+      <TouchableOpacity style={styles.button} onPress={handleSaveWifi}>
+        <Text style={styles.buttonText}>Hoàn thành</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -53,19 +86,48 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
+    paddingHorizontal: 16,
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
   },
   label: {
-    fontSize: 18,
-    marginBottom: 5,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  nameText: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+    flex: 1,
   },
   input: {
+    flex: 1,
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20,
-    padding: 5,
+    paddingHorizontal: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+  },
+
+  button: {
+    backgroundColor: '#DF5A5A',
+    padding: 10,
+    borderRadius: 20,
+    marginTop: 70,
+    marginBottom:50
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
 });
 
-export default WifiScreen;
+export default AddWifiScreen;

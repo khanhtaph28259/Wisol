@@ -4,7 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import WalletScreen from './WalletScreen';
 import SolScreen from './SolScreen';
-import WifiScreen from './WifiScreen'; // Đảm bảo rằng bạn đã import WifiScreen
+import WifiScreen from './WifiScreen';
+import WifiListScreen from './WifiListScreen'; // Đảm bảo rằng bạn đã import WifiScreen
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -12,8 +13,9 @@ const Tab = createBottomTabNavigator();
 function TabNavigator() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Sol" component={SolScreen} />
-      <Tab.Screen name="Wifi" component={WifiScreen} />
+      <Tab.Screen name="Home" component={WifiListScreen} />
+      <Tab.Screen name="Share Wifi" component={WifiScreen} />
+      <Tab.Screen name="Ví" component={SolScreen} />
     </Tab.Navigator>
   );
 }
