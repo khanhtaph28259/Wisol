@@ -9,7 +9,7 @@ const AddWifiScreen = () => {
 
   const handleSaveWifi = () => {
     let wifiData = { name: name, address: address, password: password, sol: sol };
-    let url_api_wifi = 'http://192.161.176.102:3000/api/wifi';
+    let url_api_wifi = 'http://192.168.1.118:3000/api/wifi';
 
     fetch(url_api_wifi, {
         method: 'POST',

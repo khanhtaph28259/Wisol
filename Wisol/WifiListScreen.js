@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, Button } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, Button, TextInput } from 'react-native';
 
 const WifiListScreen = () => {
   const [wifiList, setWifiList] = useState([]);
+  const [searchAddress, setSearchAddress] = useState('');
 
   useEffect(() => {
     fetchWifiList();
   }, []);
 
   const fetchWifiList = () => {
-    fetch('http://192.161.176.102:3000/wifis')
+    fetch('http://192.168.1.118:3000/wifis')
       .then(response => response.json())
       .then(data => setWifiList(data))
       .catch(error => console.error('Error:', error));
@@ -19,9 +20,24 @@ const WifiListScreen = () => {
     alert(`Bạn đã mua Wifi: ${wifi.name}`);
   };
 
+  const handleSearch = () => {
+    if (searchAddress.length > 0) {
+      setWifiList(wifiList.filter(wifi => wifi.address.includes(searchAddress)));
+    } else {
+      fetchWifiList();
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Danh sách Wifi</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Nhập địa chỉ để tìm kiếm"
+        value={searchAddress}
+        onChangeText={(txt) => setSearchAddress(txt)}
+      />
+      <Button title="Tìm kiếm" onPress={handleSearch} />
       <FlatList
         data={wifiList}
         keyExtractor={(item) => item._id}
@@ -40,6 +56,9 @@ const WifiListScreen = () => {
     </View>
   );
 };
+
+// ... (styles)
+
 
 const styles = StyleSheet.create({
   container: {
