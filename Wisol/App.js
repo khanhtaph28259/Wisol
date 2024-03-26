@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SolScreen from './SolScreen';
 import WifiScreen from './WifiScreen';
 import WifiListScreen from './WifiListScreen';
 import LoginWalletScreen from './LoginWalletScreen';
 import DangKi from './dangKi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import WalletScreen from './WalletScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -17,7 +17,7 @@ function TabNavigator() {
     <Tab.Navigator>
       <Tab.Screen name="Home" component={WifiListScreen} />
       <Tab.Screen name="Share Wifi" component={WifiScreen} />
-      <Tab.Screen name="Sol" component={SolScreen} />
+      <Tab.Screen name="Sol" component={WalletScreen} />
     </Tab.Navigator>
   );
 }

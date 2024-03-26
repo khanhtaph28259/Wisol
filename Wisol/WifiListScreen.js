@@ -10,7 +10,7 @@ const WifiListScreen = () => {
   }, []);
 
   const fetchWifiList = () => {
-    fetch('http://192.168.1.118:3000/wifis')
+    fetch('http://192.168.1.4:3000/wifis')
       .then(response => response.json())
       .then(data => setWifiList(data))
       .catch(error => console.error('Error:', error));

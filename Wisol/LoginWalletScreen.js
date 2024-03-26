@@ -10,7 +10,7 @@ const LoginWalletScreen = ({ navigation }) => {
   const [solBalance, setSolBalance] = useState(null);
 
   const handleLogin = async () => {
-    let url_api = "http://192.168.1.118:3000/login";
+    let url_api = "http://192.168.1.4:3000/login";
     fetch(url_api, {
       method: 'POST',
       headers: {
@@ -28,10 +28,7 @@ const LoginWalletScreen = ({ navigation }) => {
     .then(async(res_login)=>{
       if(res_login.message === "Đăng nhập thành công") {
         await AsyncStorage.setItem('loginInfo', JSON.stringify(res_login.user));
-        const solBalance = await fetchSolBalance(walletAddress);
-        if (solBalance) {
-          navigation.navigate('TabNavigator', { screen: 'Sol', params: { solBalance } });
-        }
+        navigation.navigate('TabNavigator'); // Chuyển hướng đến màn hình TabNavigator khi đăng nhập thành công
       } else {
         alert("Tên đăng nhập hoặc mật khẩu không đúng");
       }
@@ -40,26 +37,9 @@ const LoginWalletScreen = ({ navigation }) => {
       console.log(e);
     });
   };
+  
 
-  const fetchSolBalance = async (walletAddress) => {
-    var config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: `https://api.shyft.to/sol/v1/wallet/get_portfolio?network=devnet&wallet=${walletAddress}`,
-      headers: {
-        "x-api-key": "em2a0czrM9yiU8vn",
-      },
-    };
-
-    const response = await axios(config);
-    if (response.data.success) {
-      setSolBalance(response.data.result.sol_balance);
-      return response.data.result.sol_balance;
-    } else {
-      console.log("Error fetching data");
-      return null;
-    }
-  };
+ 
 
   return (
     <View style={styles.container}>
@@ -81,13 +61,8 @@ const LoginWalletScreen = ({ navigation }) => {
         value={password}
         secureTextEntry={true}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="ID Wallet"
-        onChangeText={(txt) => setWalletAddress(txt)}
-        value={walletAddress}
-      />
-      <Button title="Đăng nhập và lấy số dư SOL" onPress={handleLogin} />
+   
+      <Button title="Đăng nhập " onPress={handleLogin} />
     </View>
   );
 };
