@@ -15,7 +15,7 @@ const LoginScreen = (props) => {
       alert("Chưa nhập mật khẩu");
       return;
     }
-    let url_api = "http://192.168.1.113:3000/login";
+    let url_api = "http://10.24.21.143:3000/login";
     fetch(url_api, {
       method: 'POST',
       headers: {

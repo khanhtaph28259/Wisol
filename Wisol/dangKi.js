@@ -8,7 +8,7 @@ import {
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-const DangKi = (props) => {
+const DangKi = ({navigation}) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -26,7 +26,7 @@ const DangKi = (props) => {
     }
 
     let objUser  = { username: username, password: password, fullname: fullname, address: address };
-    let url_api = "http://192.168.1.113:3000/register";
+    let url_api = "http://192.168.1.5:3000/register";
 
     fetch(url_api, {
         method:'POST',

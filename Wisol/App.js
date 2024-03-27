@@ -8,16 +8,37 @@ import LoginWalletScreen from './LoginWalletScreen';
 import DangKi from './dangKi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import WalletScreen from './WalletScreen';
-
+import { Image } from 'react-native'; // Add this line
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={WifiListScreen} />
-      <Tab.Screen name="Share Wifi" component={WifiScreen} />
-      <Tab.Screen name="Sol" component={WalletScreen} />
+    <Tab.Navigator initialRouteName="WalletScreen" screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="WalletScreen" component={WalletScreen}
+        options={{
+          tabBarIcon: () => (
+            <Image
+              style={{ width: 35, height: 35 }}
+              source={require('./image/Solana.png')}
+              resizeMode="stretch"
+            />
+          ),
+        }}
+      />
+
+      <Tab.Screen name="Share Wifi" component={WifiScreen}
+        options={{
+          tabBarIcon: () => (
+            <Image
+              style={{ width: 30, height: 30 }}
+              source={require('./image/wifi-share.png')}
+              resizeMode="stretch"
+            />
+          ),
+        }}
+      />
+
     </Tab.Navigator>
   );
 }

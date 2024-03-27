@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Text, StyleSheet, Image } from "react-native";
+import { View, TextInput, Button, Text, StyleSheet, Image,TouchableOpacity } from "react-native";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -10,7 +10,7 @@ const LoginWalletScreen = ({ navigation }) => {
   const [solBalance, setSolBalance] = useState(null);
 
   const handleLogin = async () => {
-    let url_api = "http://192.168.1.4:3000/login";
+    let url_api = "http://192.168.1.5:3000/login";
     fetch(url_api, {
       method: 'POST',
       headers: {
@@ -38,7 +38,10 @@ const LoginWalletScreen = ({ navigation }) => {
     });
   };
   
-
+  const handleSignUp = () => {
+    console.log('Đăng ký');
+    navigation.navigate('SignUp');
+  };
  
 
   return (
@@ -47,22 +50,28 @@ const LoginWalletScreen = ({ navigation }) => {
         style={styles.icon}
         source={require('./logo1.png')}
       />
-      <Text style={styles.title}>Đăng nhập và nhập ID Wallet</Text>
+      <Text style={styles.title}>Đăng nhập</Text>
       <TextInput
         style={styles.input}
         placeholder="Tên đăng nhập"
+        placeholderTextColor="white" 
+        tex
         onChangeText={(txt) => setUsername(txt)}
         value={username}
       />
       <TextInput
         style={styles.input}
         placeholder="Mật khẩu"
+        placeholderTextColor="white" 
         onChangeText={(txt) => setPassword(txt)}
         value={password}
         secureTextEntry={true}
       />
    
-      <Button title="Đăng nhập " onPress={handleLogin} />
+      <Text style={styles.button} onPress={handleLogin} >Đăng Nhập</Text>
+      <TouchableOpacity onPress={handleSignUp}>
+        <Text style={styles.signUp}>Bạn chưa có tài khoản? Đăng ký</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -87,11 +96,27 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: 'white',
     borderWidth: 1,
-    color: '#fff',
     marginBottom: 10,
     width: '100%',
+    color: 'white',
+    padding:10
+  },
+  button: {
+    width: '50%',
+    paddingVertical: 10,
+    borderRadius: 8,
+    color: 'red',
+    fontSize: 15,
+    fontWeight: '700',
+    textAlign: 'center',
+    backgroundColor: 'white',
+  },
+  signUp: {
+    marginTop: 16,
+    color: 'white',
+    textAlign: 'center',
   },
 });
 
